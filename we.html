@@ -1,47 +1,55 @@
-HTML JSResult Skip Results Iframe
-EDIT ON
-window.onload = updateToDoList();
 
+<body class="bg-dark">
 
-document.getElementById('newToDoItem').addEventListener("keyup", function(event) {
-  // Number 13 is the "Enter" key on the keyboard
-  if (event.keyCode === 13) {
-    // Cancel the default action, if needed
-    event.preventDefault();
-    saveItem();
-  }
-});
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">ToDo TaDa!</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-function saveItem(){
-  storedList = JSON.parse(localStorage.getItem("toDoItems"));
-  storedList.push(document.getElementById('newToDoItem').value);
-  localStorage.setItem('toDoItems', JSON.stringify(storedList));
-  // console.log(localStorage.getItem('toDoItems'));
-  updateToDoList();
-  document.getElementById('newToDoItem').value = "";
-}
+    <div class="collapse navbar-collapse" id="navbarColor03">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">All Items</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Incomplete Items</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Complete Items</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-function printNothingToDo() {
-  nothingtodo = "<div class='mb-2 col-md-12'><p class='mb-2 mt-2 text-center text-light border border-light p-2'><i class='far fa-thumbs-up mr-4'></i>Thumbs up - theres nothing to do!</p></div>";
-  document.getElementById('toDoContainer').innerHTML = nothingtodo;
-}
+  <main>
+    <div class="container mt-4">
+      <h1 class="text-light h5">Things to Do:</h1>
+      <div class="row" id="toDoContainer">
 
-function updateToDoList() {
-  if (localStorage.getItem("toDoItems") === null) { //  if array doesnt exist make one
-    blankArray = [];
-    localStorage.setItem("toDoItems", JSON.stringify(blankArray));
-    printNothingToDo();
-  } else if (localStorage.getItem("toDoItems") === "[]") { //  if array does exist but is empty
-    printNothingToDo();
-  } else {
-    storedList = JSON.parse(localStorage.getItem("toDoItems")); //get localstorage and turn into array
-    toDoContainer = document.createElement('div'); //go through array and write a new alert box for each
-    storedList.forEach(function(item, index) {
-      div = document.createElement('div');
-      div.setAttribute('class', 'mb-2 col-md-12');
-      div.innerHTML = "<div class='alert alert-primary mb-1' id=item-" + index + ")'><p class='mb-0'><i class='far fa-circle mr-4'></i>" + item + "</p></div>";
-      toDoContainer.appendChild(div);
-    });
-    document.getElementById('toDoContainer').innerHTML = toDoContainer.innerHTML;
-  }
-}
+      </div>
+      <h1 class="text-light h5">Completed Items:</h1>
+      <div class="row" id="completedContainer">
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-4">
+      <h1 class="text-light h5">Add a To Do</h1>
+      <div class="row">
+        <div class="col-md-12">
+            <input type="text" class="form-control" id="newToDoItem" placeholder="Engage Hyperdrive Systems">
+            <button id="form-submit-button" type="submit" class="btn btn-primary mt-3" onclick="saveItem()">Save Item</button>
+          <button class="btn btn-primary mt-3" onclick="deleteCompleted();">Delete Completed</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <script type="text/javascript" src="./scripts.js"></script>
+
+  <script type="text/javascript">
+    window.onload = updateToDoList();
+  </script>
+
+</body>
